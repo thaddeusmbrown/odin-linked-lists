@@ -1,5 +1,6 @@
-require 'pry-byebug'
+# frozen_string_literal: false
 
+# Description/Node unit within linked list, contains value and next node
 class Node
   attr_accessor :value, :next_node
 
@@ -9,6 +10,7 @@ class Node
   end
 end
 
+# Description/LinkedList contains head node that references next node in linked list
 class LinkedList
   attr_accessor :node_head
 
@@ -41,11 +43,9 @@ class LinkedList
     current_node = @node_head
     loop do
       count += 1
-      if current_node.next_node.nil?
-        return count
-      else
-        current_node = current_node.next_node
-      end
+      return count if current_node.next_node.nil?
+
+      current_node = current_node.next_node
     end
   end
 
@@ -59,11 +59,10 @@ class LinkedList
     current_node = @node_head
     loop do
       # if the current node is the tail node, add a new node at the end
-      if current_node.next_node.nil?
-        return current_node
-      else # check if the next node is the tail node
-        current_node = current_node.next_node
-      end
+      return current_node if current_node.next_node.nil?
+
+      # check if the next node is the tail node
+      current_node = current_node.next_node
     end
   end
 
@@ -103,13 +102,11 @@ class LinkedList
   def contains?(value)
     current_node = @node_head
     loop do
-      if current_node.value == value
-        return true
-      elsif current_node.next_node.nil?
-        return false
-      else
-        current_node = current_node.next_node
-      end
+      return true if current_node.value == value
+
+      return false if current_node.next_node.nil?
+
+      current_node = current_node.next_node
     end
   end
 
@@ -118,28 +115,26 @@ class LinkedList
     current_node = @node_head
     index = 0
     loop do
-      if current_node.value == value
-        return index
-      elsif current_node.next_node.nil?
-        return nil
-      else
-        current_node = current_node.next_node
-        index += 1
-      end
+      return index if current_node.value == value
+
+      return nil if current_node.next_node.nil?
+
+      current_node = current_node.next_node
+      index += 1
     end
   end
 
   # represent your LinkedList objects as strings, so you can print them out and preview them in the console.
   # the format should be: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
-    string = ''
+    str = ''
     current_node = @node_head
     loop do
       if current_node.next_node.nil?
-        string.concat("( #{current_node.value} ) -> nil")
-        return string
+        str.concat("( #{current_node.value} ) -> nil")
+        return str
       else
-        string.concat("( #{current_node.value} ) -> ")
+        str.concat("( #{current_node.value} ) -> ")
         current_node = current_node.next_node
       end
     end
@@ -149,19 +144,16 @@ class LinkedList
   def insert_at(value = nil, index)
     current_index = 0
     current_node = @node_head
-    if index >= self.size
-      'Error: index out of range'
-    elsif index.zero?
-      prepend(value)
-    else
-      loop do
-        current_index += 1
-        previous_node = current_node
-        current_node = current_node.next_node
-        if current_index == index
-          previous_node.next_node = Node.new(value, current_node)
-          return
-        end
+    return 'Error: index out of range' if index >= size
+
+    prepend(value) if index.zero?
+    loop do
+      current_index += 1
+      previous_node = current_node
+      current_node = current_node.next_node
+      if current_index == index
+        previous_node.next_node = Node.new(value, current_node)
+        return
       end
     end
   end
@@ -170,7 +162,7 @@ class LinkedList
   def remove_at(index)
     current_index = 0
     current_node = @node_head
-    if index == 0
+    if index.zero?
       @node_head = @node_head.next_node
     elsif index >= size
       'Error: index out of range'

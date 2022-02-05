@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
-require_relative '../lib/linked_lists.rb'
+require_relative '../lib/linked_lists'
 
 RSpec.describe 'LinkedLists' do
   describe Node do
