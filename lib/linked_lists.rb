@@ -147,11 +147,44 @@ class LinkedList
 
   # inserts a new node with the provided value at the given index
   def insert_at(value = nil, index)
-
+    current_index = 0
+    current_node = @node_head
+    if index >= self.size
+      'Error: index out of range'
+    elsif index.zero?
+      prepend(value)
+    else
+      loop do
+        current_index += 1
+        previous_node = current_node
+        current_node = current_node.next_node
+        if current_index == index
+          previous_node.next_node = Node.new(value, current_node)
+          return
+        end
+      end
+    end
   end
 
   # removes the node at the given index
   def remove_at(index)
-
+    current_index = 0
+    current_node = @node_head
+    if index == 0
+      @node_head = @node_head.next_node
+    elsif index >= size
+      'Error: index out of range'
+    else
+      loop do
+        current_index += 1
+        previous_node = current_node
+        current_node = current_node.next_node
+        next_node = current_node.next_node
+        if current_index == index
+          previous_node.next_node = next_node
+          return
+        end
+      end
+    end
   end
 end

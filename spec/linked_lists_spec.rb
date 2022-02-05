@@ -68,10 +68,10 @@ RSpec.describe 'LinkedLists' do
     end
 
     describe '#pop' do
-      before do
-        @result = @linked_list.pop
-      end
       context 'removes the last node from the list and returns value of that node' do
+        before do
+          @result = @linked_list.pop
+        end
         it 'method returns value of popped node' do
           expect(@result).to eq 2
         end
@@ -107,24 +107,32 @@ RSpec.describe 'LinkedLists' do
     end
 
     describe '#insert_at(value, index)' do
-      xcontext 'inserts a new node at the given index' do
+      context 'inserts a new node at the given index' do
+        before do
+          @linked_list.insert_at('insert test', 1)
+        end
         # @linked_list.insert_at('insert test', 1)
-        xit 'node is inserted at correct position' do
+        it 'node is inserted at correct position' do
           expect(@linked_list.find('insert test')).to eq 1
         end
-        xit 'linked list is correct size after insertion' do
+        it 'linked list is correct size after insertion' do
           expect(@linked_list.size).to eq 4
         end
+      end
+      it 'returns an error when index is outside of range' do
+        expect(@linked_list.insert_at('insert test', @linked_list.size)).to eq 'Error: index out of range'
       end
     end
 
     describe '#remove_at(index)' do
-      xcontext 'removes a node at the given index' do
-        # @linked_list.remove_at(1)
-        xit 'correct node is removed' do
+      context 'removes a node at the given index' do
+        before do
+          @linked_list.remove_at(1)
+        end
+        it 'correct node is removed' do
           expect(@linked_list.find(2)).to eq 1
         end
-        xit 'linked list is correct size after removal' do
+        it 'linked list is correct size after removal' do
           expect(@linked_list.size).to eq 2
         end
       end
