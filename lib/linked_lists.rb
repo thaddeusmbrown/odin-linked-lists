@@ -32,48 +32,117 @@ class LinkedList
 
   # adds a new node containing 'value' to the start of the list
   def prepend(value = nil)
-
+    @node_head = Node.new(value, @node_head)
   end
 
   # returns the total number of nodes in the list
   def size
-
+    count = 0
+    current_node = @node_head
+    loop do
+      count += 1
+      if current_node.next_node.nil?
+        return count
+      else
+        current_node = current_node.next_node
+      end
+    end
   end
 
   # returns the first node in the list
   def head
-
+    @node_head
   end
 
   # returns the last node in the list
   def tail
-
+    current_node = @node_head
+    loop do
+      # if the current node is the tail node, add a new node at the end
+      if current_node.next_node.nil?
+        return current_node
+      else # check if the next node is the tail node
+        current_node = current_node.next_node
+      end
+    end
   end
 
   # returns the node at the given index
   def at(index)
-
+    current_node = @node_head
+    (0..index).each do
+      current_node = @node_head.next_node
+    end
+    current_node
   end
 
   # removes the last element from the list
   def pop
+    # edge case for linked list of size 1
+    if @node_head.next_node.nil?
+      value = @node_head.value
+      @node_head = nil
+      return value
+    end
 
+    current_node = @node_head
+    next_node = @node_head.next_node
+    loop do
+      if next_node.next_node.nil?
+        value = next_node.value
+        current_node.next_node = nil
+        return value
+      else
+        current_node = next_node
+        next_node = next_node.next_node
+      end
+    end
   end
 
   # returns true if the passed in value is in the list and otherwise returns false
   def contains?(value)
-
+    current_node = @node_head
+    loop do
+      if current_node.value == value
+        return true
+      elsif current_node.next_node.nil?
+        return false
+      else
+        current_node = current_node.next_node
+      end
+    end
   end
 
   # returns the index of the node conaining value, or nil if not found
   def find(value)
-
+    current_node = @node_head
+    index = 0
+    loop do
+      if current_node.value == value
+        return index
+      elsif current_node.next_node.nil?
+        return nil
+      else
+        current_node = current_node.next_node
+        index += 1
+      end
+    end
   end
 
   # represent your LinkedList objects as strings, so you can print them out and preview them in the console.
   # the format should be: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
-
+    string = ''
+    current_node = @node_head
+    loop do
+      if current_node.next_node.nil?
+        string.concat("( #{current_node.value} ) -> nil")
+        return string
+      else
+        string.concat("( #{current_node.value} ) -> ")
+        current_node = current_node.next_node
+      end
+    end
   end
 
   # inserts a new node with the provided value at the given index

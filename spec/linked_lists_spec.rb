@@ -43,63 +43,65 @@ RSpec.describe 'LinkedLists' do
     end
 
     describe '#size' do
-      xit 'returns size of linked list (number of nodes)' do
+      it 'returns size of linked list (number of nodes)' do
         expect(@linked_list.size).to eq 3
       end
     end
 
     describe '#head' do
-      xit 'returns the first node in the list' do
-        expect(@linked_list.head).to eq @linked_list.head_node
+      it 'returns the first node in the list' do
+        expect(@linked_list.head).to eq @linked_list.node_head
       end
     end
 
     describe '#tail' do
-      xit 'returns the last node in the list' do
+      it 'returns the last node in the list' do
         @linked_list.append('tail test')
         expect(@linked_list.tail.value).to eq 'tail test'
       end
     end
 
     describe '#at(index)' do
-      xit 'returns the node at the given index' do
+      it 'returns the node at the given index' do
         expect(@linked_list.at(1).value).to eq 1
       end
     end
 
     describe '#pop' do
-      xcontext 'removes the last node from the list and returns value of that node' do
-        # pop_value = @linked_list.pop
-        xit 'method returns value of popped node' do
-          expect(pop_value).to eq 2
+      before do
+        @result = @linked_list.pop
+      end
+      context 'removes the last node from the list and returns value of that node' do
+        it 'method returns value of popped node' do
+          expect(@result).to eq 2
         end
-        xit 'popped node is removed from linked list' do
+        it 'popped node is removed from linked list' do
           expect(@linked_list.tail.value).to eq 1
         end
       end
     end
 
     describe '#contains?(value)' do
-      xit 'returns true when value is in linked list' do
+      it 'returns true when value is in linked list' do
         expect(@linked_list.contains?(1)).to eq true
       end
-      xit 'returns false when value is not in linked list' do
+      it 'returns false when value is not in linked list' do
         expect(@linked_list.contains?('foo')).to eq false
       end
     end
 
     describe '#find(value)' do
-      xit 'returns the index of the node with the searched value' do
+      it 'returns the index of the node with the searched value' do
         expect(@linked_list.find(1)).to eq 1
       end
-      xit 'returns nil when value not in linked_list' do
+      it 'returns nil when value not in linked_list' do
         expect(@linked_list.find('foo')).to eq nil
       end
     end
 
     describe '#to_s' do
-      xit 'returns a string representation of linked list' do
-        result = '( nil ) -> ( 1 ) -> ( 2 ) -> nil'
+      it 'returns a string representation of linked list' do
+        result = '(  ) -> ( 1 ) -> ( 2 ) -> nil'
         expect(@linked_list.to_s).to eq result
       end
     end
