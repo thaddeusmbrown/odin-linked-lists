@@ -23,53 +23,109 @@ RSpec.describe 'LinkedLists' do
   end
 
   describe LinkedList do
-    let(:linked_list) { LinkedList.new }
+    before do
+      @linked_list = LinkedList.new
+      @linked_list.append(1)
+      @linked_list.append(2)
+    end
     describe '#append(value)' do
-
+      it "adds a node with value 'append test' to end of linked list" do
+        @linked_list.append('append test')
+        expect(@linked_list.node_head.next_node.next_node.next_node.value).to eq 'append test'
+      end
     end
 
     describe '#prepend(value)' do
-
+      it "adds a node with value 'prepend test' to the beginning of linked list" do
+        @linked_list.prepend('prepend test')
+        expect(@linked_list.node_head.value).to eq 'prepend test'
+      end
     end
 
     describe '#size' do
-
+      xit 'returns size of linked list (number of nodes)' do
+        expect(@linked_list.size).to eq 3
+      end
     end
 
     describe '#head' do
-
+      xit 'returns the first node in the list' do
+        expect(@linked_list.head).to eq @linked_list.head_node
+      end
     end
 
     describe '#tail' do
-
+      xit 'returns the last node in the list' do
+        @linked_list.append('tail test')
+        expect(@linked_list.tail.value).to eq 'tail test'
+      end
     end
 
     describe '#at(index)' do
-
+      xit 'returns the node at the given index' do
+        expect(@linked_list.at(1).value).to eq 1
+      end
     end
 
     describe '#pop' do
-
+      xcontext 'removes the last node from the list and returns value of that node' do
+        # pop_value = @linked_list.pop
+        xit 'method returns value of popped node' do
+          expect(pop_value).to eq 2
+        end
+        xit 'popped node is removed from linked list' do
+          expect(@linked_list.tail.value).to eq 1
+        end
+      end
     end
 
     describe '#contains?(value)' do
-
+      xit 'returns true when value is in linked list' do
+        expect(@linked_list.contains?(1)).to eq true
+      end
+      xit 'returns false when value is not in linked list' do
+        expect(@linked_list.contains?('foo')).to eq false
+      end
     end
 
     describe '#find(value)' do
-
+      xit 'returns the index of the node with the searched value' do
+        expect(@linked_list.find(1)).to eq 1
+      end
+      xit 'returns nil when value not in linked_list' do
+        expect(@linked_list.find('foo')).to eq nil
+      end
     end
 
     describe '#to_s' do
-
+      xit 'returns a string representation of linked list' do
+        result = '( nil ) -> ( 1 ) -> ( 2 ) -> nil'
+        expect(@linked_list.to_s).to eq result
+      end
     end
 
     describe '#insert_at(value, index)' do
-
+      xcontext 'inserts a new node at the given index' do
+        # @linked_list.insert_at('insert test', 1)
+        xit 'node is inserted at correct position' do
+          expect(@linked_list.find('insert test')).to eq 1
+        end
+        xit 'linked list is correct size after insertion' do
+          expect(@linked_list.size).to eq 4
+        end
+      end
     end
 
     describe '#remove_at(index)' do
-
+      xcontext 'removes a node at the given index' do
+        # @linked_list.remove_at(1)
+        xit 'correct node is removed' do
+          expect(@linked_list.find(2)).to eq 1
+        end
+        xit 'linked list is correct size after removal' do
+          expect(@linked_list.size).to eq 2
+        end
+      end
     end
   end
 end
